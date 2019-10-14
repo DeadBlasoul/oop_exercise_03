@@ -82,7 +82,9 @@ int main() {
         }
         else if (input == print) {
             for (size_t i = 0; i < figures.size(); ++i) {
-                cout << '[' << i << "] " << *figures[i] << endl;
+                cout << '[' << i << "] " << *figures[i]    << endl
+                     << "\tsquare: " << figures[i]->square() << endl
+                     << "\tcenter: " << figures[i]->center() << endl << endl;
             }
         }
         else if (input == remove) {
@@ -110,3 +112,4 @@ int main() {
 
     return 0;
 }
+

@@ -6,7 +6,7 @@ void rotate(figure<point2d>& fig, point2d vertex, double phi) {
     }
 }
 
-std::istream& operator<<(std::istream& stream, rhombus& fig) {
+std::istream& operator>>(std::istream& stream, rhombus& fig) {
     double x, y, h, v;
     stream >> x >> y >> h >> v;
     fig = rhombus({ x, y }, h, v);

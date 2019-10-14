@@ -87,7 +87,7 @@ std::ostream& operator<<(std::ostream& stream, const figure<_Type>& fig) {
 }
 
 template<typename _Type>
-std::istream& operator>>(std::istream& stream, figure<_Type>& fig) {
+std::istream& operator<<(std::istream& stream, figure<_Type>& fig) {
     for (auto& p : fig) {
         stream >> p;
     }
@@ -104,8 +104,26 @@ struct rhombus final : public figure<point2d> {
     point points[4];
 
     rhombus()
-        : points{0}
+        : points{ 0 }
     {}
+
+    rhombus(std::istream& stream, double precision = 0.000000001) {
+        for (auto& p : points) {
+            stream >> p;
+        }
+        if (stream.fail()) {
+            return;
+        }
+
+        double dist = distance(points[0], points[3]);
+        for (size_t i = 0; i < 3; i++) {
+            double next = distance(points[i], points[i + 1]);
+            if (std::abs(dist - next) > precision) {
+                stream.setf(std::ios::failbit);
+                break;
+            }
+        }
+    }
 
     rhombus(point2d center, double horizontal, double vertical) {
         constexpr size_t x = 0;
@@ -130,7 +148,7 @@ struct rhombus final : public figure<point2d> {
     }
 };
 
-std::istream& operator<<(std::istream& stream, rhombus& fig);
+std::istream& operator>>(std::istream& stream, rhombus& fig);
 
 template<size_t _Num>
 struct ngon final : figure<point2d> {
@@ -142,6 +160,12 @@ struct ngon final : figure<point2d> {
     ngon()
         : points{ 0 }
     {}
+
+    ngon(std::istream& stream) {
+        for (auto& p : points) {
+            stream >> p;
+        }
+    }
 
     ngon(point center, double radius)
         : points{ 0 } {

@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+
+\usepackage{fullpage}
+\usepackage{multicol,multirow}
+\usepackage{tabularx}
+\usepackage{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{minted}
+
+% Оригиналный шаблон: http://k806.ru/dalabs/da-report-template-2012.tex
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\textbf{МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РОССИЙСОЙ ФЕДЕРАЦИИ
+\medskip
+МОСКОВСКИЙ АВЦИАЦИОННЫЙ ИНСТИТУТ
+(НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЬЕЛЬСКИЙ УНИВЕРСТИТЕТ)
+\vfill\vfill
+{\Huge ЛАБОРАТОРНАЯ РАБОТА №3} 
+по курсу объектно-ориентированное программирование
+I семестр, 2019/20 уч. год}
+\end{center}
+\vfill
+
+Студент \uline{\it {Попов Данила Андреевич, группа 08-208Б-18}\hfill}
+
+Преподаватель \uline{\it {Журавлёв Андрей Андреевич}\hfill}
+
+\vfill
+\end{titlepage}
+
+\subsection*{Условие}
+
+Задание №1: написать программу, которая реализует работу с фигурами: 
+\begin{enumerate}
+\item Вставка
+\item Удаление
+\item Печать фигуры
+\item Печать всех фигур
+\end{enumerate}
+
+\subsection*{Описание программы}
+
+Код программы состоит из 5-ти файлов:
+\begin{enumerate}
+\item app/main.cpp
+\item src/figure.hpp
+\item src/figure.cpp
+\item src/point.hpp
+\item src/point.cpp
+\end{enumerate}
+
+\subsection*{Выводы}
+Узнавать тонкости выполнения работы и не делать в одно утро.
+\vfill
+
+\subsection*{Исходный код}
+
+
+%{\Huge main.hpp}
+%\inputminted
+%{C++}{app/main.cpp}
+%\pagebreak
+
+{\Huge figure.hpp}
+\inputminted
+{C++}{src/figure.hpp}
+\pagebreak
+
+{\Huge figure.cpp}
+\inputminted
+{C++}{src/figure.cpp}
+\pagebreak
+
+{\Huge point.hpp}
+\inputminted
+{C++}{src/point.hpp}
+\pagebreak
+
+{\Huge point.cpp}
+\inputminted
+{C++}{src/point.cpp}
+\pagebreak
+
+\end{document}

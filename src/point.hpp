@@ -93,3 +93,8 @@ std::istream& operator>>(std::istream& stream, point<_Type, _Dims>& p) {
 using point2d = point<double, 2>;
 
 point2d rotate_point2d(point2d p, point2d vertex, double phi);
+inline double distance(const point2d& left, const point2d& right) {
+    double x = left[0] - right[0];
+    double y = left[1] - right[1];
+    return std::sqrt((x * x) + (y * y));
+}

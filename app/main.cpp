@@ -64,25 +64,21 @@ int main() {
             }
             to_upper(type);
 
-
+            figure2d* fig = nullptr;
             if (type == pentagon_type) {
-                auto fig = new pentagon;
-                cin >> *fig;
-                figures.emplace(figures.begin() + ix, fig);
+                fig = new pentagon(cin);
             }
             else if (type == hexagon_type) {
-                auto fig = new hexagon;
-                cin >> *fig;
-                figures.emplace(figures.begin() + ix, fig);
+                fig = new hexagon(cin);
             }
             else if (type == rhombus_type) {
-                auto fig = new hexagon;
-                cin >> *fig;
-                figures.emplace(figures.begin() + ix, fig);
+                fig = new rhombus(cin);
             }
             else {
                 cout << "unknown type" << endl;
+                continue;
             }
+            figures.emplace(figures.begin() + ix, fig);
         }
         else if (input == print) {
             for (size_t i = 0; i < figures.size(); ++i) {

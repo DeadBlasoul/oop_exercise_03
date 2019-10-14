@@ -106,19 +106,20 @@ struct rhombus final : public figure<point2d> {
     }
 };
 
-struct pentagon final : public figure<point2d> {
+template<size_t _Num>
+struct ngon final : figure<point2d> {
     using point = figure::point;
     using iterator = figure::iterator;
 
-    point points[5];
+    point points[_Num];
 
-    pentagon(point center, double radius)
+    ngon(point center, double radius)
         : points{ 0 } {
         auto constexpr x = 0;
         auto constexpr y = 1;
 
         double angle = 0.0;
-        double phi = (2 * CONST_PI) / (sizeof(points) / sizeof(*points));
+        double phi = (2 * CONST_PI) / _Num;
 
         for (auto& p : points) {
             p = rotate_point2d({ center[x], center[y] + radius }, center, angle);
@@ -139,35 +140,5 @@ struct pentagon final : public figure<point2d> {
     }
 };
 
-struct hexagon final : public figure<point2d> {
-    using point = figure::point;
-    using iterator = figure::iterator;
-
-    point points[6];
-
-    hexagon(point center, double radius)
-        : points{ 0 } {
-        auto constexpr x = 0;
-        auto constexpr y = 1;
-
-        double angle = 0.0;
-        double phi = (2 * CONST_PI) / (sizeof(points) / sizeof(*points));
-
-        for (auto& p : points) {
-            p = rotate_point2d({ center[x], center[y] + radius }, center, angle);
-            angle += phi;
-        }
-    }
-
-    virtual void rotate(point vertex, double angle) final {
-        ::rotate(*this, vertex, angle);
-    }
-
-    iterator begin() final {
-        return &points[0];
-    }
-
-    iterator end() final {
-        return &points[sizeof(points) / sizeof(*points)];
-    }
-};
+using pentagon = ngon<5>;
+using hexagon = ngon<6>;

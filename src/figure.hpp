@@ -119,7 +119,7 @@ struct rhombus final : public figure<point2d> {
         for (size_t i = 0; i < 3; i++) {
             double next = distance(points[i], points[i + 1]);
             if (std::abs(dist - next) > precision) {
-                stream.setf(std::ios::failbit);
+                stream.setstate(std::ios::failbit);
                 break;
             }
         }

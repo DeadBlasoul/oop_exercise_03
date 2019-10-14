@@ -10,6 +10,14 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\figure.cpp" />
+    <ClCompile Include="src\point.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\figure.hpp" />
+    <ClInclude Include="src\point.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{E030CCA5-A7AB-4BAA-9E64-C8ECCE3ADBD8}</ProjectGuid>
@@ -76,10 +84,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="src\figure.hpp" />
-    <ClInclude Include="src\point.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

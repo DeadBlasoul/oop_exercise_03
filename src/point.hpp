@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <cstddef>
 #include <cassert>
 #include <cmath>
@@ -67,6 +68,26 @@ struct point {
         return result;
     }
 };
+
+template<typename _Type, size_t _Dims>
+std::ostream& operator<<(std::ostream& stream, const point<_Type, _Dims>& p) {
+    stream << "{ ";
+    for (const auto& d : p) {
+        stream << d << " ";
+    }
+    stream << "}";
+
+    return stream;
+}
+
+template<typename _Type, size_t _Dims>
+std::istream& operator>>(std::istream& stream, point<_Type, _Dims>& p) {
+    for (auto& d : p) {
+        stream >> d;
+    }
+
+    return stream;
+}
 
 // Examples:
 using point2d = point<double, 2>;

@@ -3,6 +3,7 @@
 #include <utility>
 #include <tuple>
 #include <vector>
+#include <iostream>
 
 #include "point.hpp"
 
@@ -74,6 +75,25 @@ struct figure {
     }
 };
 
+template<typename _Type>
+std::ostream& operator<<(std::ostream& stream, const figure<_Type>& fig) {
+    stream << "\"" << typeid(fig).name() << "\":{ ";
+    for (const auto& p : fig) {
+        stream << p << " ";
+    }
+    stream << "}";
+
+    return stream;
+}
+
+template<typename _Type>
+std::istream& operator>>(std::istream& stream, figure<_Type>& fig) {
+    for (auto& p : fig) {
+        stream >> p;
+    }
+    return stream;
+}
+
 // Examples:
 void rotate(figure<point2d>& fig, point2d vertex, double phi);
 
@@ -82,6 +102,10 @@ struct rhombus final : public figure<point2d> {
     using iterator = figure::iterator;
 
     point points[4];
+
+    rhombus()
+        : points{0}
+    {}
 
     rhombus(point2d center, double horizontal, double vertical) {
         constexpr size_t x = 0;
@@ -93,18 +117,20 @@ struct rhombus final : public figure<point2d> {
         points[3] = { center[x] + horizontal / 2, center[y] };
     }
 
-    virtual void rotate(point vertex, double angle) final {
+    void rotate(point vertex, double angle) override {
         ::rotate(*this, vertex, angle);
     }
 
-    iterator begin() final {
+    iterator begin() override {
         return &points[0];
     }
 
-    iterator end() final {
+    iterator end() override {
         return &points[sizeof(points) / sizeof(*points)];
     }
 };
+
+std::istream& operator<<(std::istream& stream, rhombus& fig);
 
 template<size_t _Num>
 struct ngon final : figure<point2d> {
@@ -112,6 +138,10 @@ struct ngon final : figure<point2d> {
     using iterator = figure::iterator;
 
     point points[_Num];
+
+    ngon()
+        : points{ 0 }
+    {}
 
     ngon(point center, double radius)
         : points{ 0 } {
@@ -127,18 +157,27 @@ struct ngon final : figure<point2d> {
         }
     }
 
-    virtual void rotate(point vertex, double angle) final {
+    void rotate(point vertex, double angle) override {
         ::rotate(*this, vertex, angle);
     }
 
-    iterator begin() final {
+    iterator begin() override {
         return &points[0];
     }
 
-    iterator end() final {
+    iterator end() override {
         return &points[sizeof(points) / sizeof(*points)];
     }
 };
+
+template<size_t _Num>
+std::istream& operator>>(std::istream& stream, ngon<_Num>& fig) {
+    double x, y, r;
+    stream >> x >> y >> r;
+    fig = ngon<_Num>({ x, y }, r);
+
+    return stream;
+}
 
 using pentagon = ngon<5>;
 using hexagon = ngon<6>;

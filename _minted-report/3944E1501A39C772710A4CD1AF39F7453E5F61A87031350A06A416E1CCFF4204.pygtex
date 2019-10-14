@@ -1,0 +1,102 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}pragma once}
+
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}cstddef\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}cassert\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}cmath\PYGZgt{}}
+
+\PYG{k}{template}\PYG{o}{\PYGZlt{}}\PYG{k}{typename} \PYG{n}{\PYGZus{}Type}\PYG{p}{,} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{\PYGZus{}Dimensions}\PYG{o}{\PYGZgt{}}
+\PYG{k}{struct} \PYG{n}{point} \PYG{p}{\PYGZob{}}
+    \PYG{k}{static\PYGZus{}assert}\PYG{p}{(}\PYG{n}{\PYGZus{}Dimensions} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}can not create 0d point\PYGZdq{}}\PYG{p}{);}
+
+    \PYG{k}{using} \PYG{n}{type}            \PYG{o}{=} \PYG{n}{\PYGZus{}Type}\PYG{p}{;}
+    \PYG{k}{using} \PYG{n}{reference}       \PYG{o}{=} \PYG{n}{type}\PYG{o}{\PYGZam{}}\PYG{p}{;}
+    \PYG{k}{using} \PYG{n}{const\PYGZus{}reference} \PYG{o}{=} \PYG{k}{const} \PYG{n}{type}\PYG{o}{\PYGZam{}}\PYG{p}{;}
+    \PYG{k}{using} \PYG{n}{pointer}         \PYG{o}{=} \PYG{n}{type}\PYG{o}{*}\PYG{p}{;}
+    \PYG{k}{using} \PYG{n}{const\PYGZus{}pointer}   \PYG{o}{=} \PYG{k}{const} \PYG{n}{type}\PYG{o}{*}\PYG{p}{;}
+
+    \PYG{k}{using} \PYG{n}{iterator}       \PYG{o}{=} \PYG{n}{pointer}\PYG{p}{;}
+    \PYG{k}{using} \PYG{n}{const\PYGZus{}iterator} \PYG{o}{=} \PYG{n}{const\PYGZus{}pointer}\PYG{p}{;}
+
+    \PYG{n}{type} \PYG{n}{dots}\PYG{p}{[}\PYG{n}{\PYGZus{}Dimensions}\PYG{p}{];}
+
+    \PYG{n}{type}\PYG{o}{\PYGZam{}} \PYG{k}{operator}\PYG{p}{[](}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{ix}\PYG{p}{)} \PYG{k}{noexcept} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{dots}\PYG{p}{[}\PYG{n}{ix}\PYG{p}{];}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k}{const} \PYG{n}{type}\PYG{o}{\PYGZam{}} \PYG{k}{operator}\PYG{p}{[](}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{ix}\PYG{p}{)} \PYG{k}{const} \PYG{k}{noexcept} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{k}{const\PYGZus{}cast}\PYG{o}{\PYGZlt{}}\PYG{n}{point}\PYG{o}{\PYGZam{}\PYGZgt{}}\PYG{p}{(}\PYG{o}{*}\PYG{k}{this}\PYG{p}{).}\PYG{k}{operator}\PYG{p}{[](}\PYG{n}{ix}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{iterator} \PYG{n}{begin}\PYG{p}{()} \PYG{k}{noexcept} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{o}{\PYGZam{}}\PYG{n}{dots}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{p}{\PYGZcb{}}
+    
+    \PYG{n}{const\PYGZus{}iterator} \PYG{n}{begin}\PYG{p}{()} \PYG{k}{const} \PYG{k}{noexcept} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{k}{const\PYGZus{}cast}\PYG{o}{\PYGZlt{}}\PYG{n}{point}\PYG{o}{\PYGZam{}\PYGZgt{}}\PYG{p}{(}\PYG{o}{*}\PYG{k}{this}\PYG{p}{).}\PYG{n}{begin}\PYG{p}{();}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{iterator} \PYG{n}{end}\PYG{p}{()} \PYG{k}{noexcept} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{o}{\PYGZam{}}\PYG{n}{dots}\PYG{p}{[}\PYG{n}{\PYGZus{}Dimensions}\PYG{p}{];}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{const\PYGZus{}iterator} \PYG{n}{end}\PYG{p}{()} \PYG{k}{const} \PYG{k}{noexcept} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{k}{const\PYGZus{}cast}\PYG{o}{\PYGZlt{}}\PYG{n}{point}\PYG{o}{\PYGZam{}\PYGZgt{}}\PYG{p}{(}\PYG{o}{*}\PYG{k}{this}\PYG{p}{).}\PYG{n}{end}\PYG{p}{();}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k}{static} \PYG{k}{constexpr} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{size}\PYG{p}{()} \PYG{k}{noexcept} \PYG{p}{\PYGZob{}}
+        \PYG{k}{return} \PYG{n}{\PYGZus{}Dimensions}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{point} \PYG{k}{operator}\PYG{o}{+}\PYG{p}{(}\PYG{k}{const} \PYG{n}{point}\PYG{o}{\PYGZam{}} \PYG{n}{other}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{n}{point} \PYG{n}{result} \PYG{o}{=} \PYG{o}{*}\PYG{k}{this}\PYG{p}{;}
+
+        \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{result}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{+=} \PYG{n}{other}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{return} \PYG{n}{result}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{point} \PYG{k}{operator}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{k}{const} \PYG{n}{point}\PYG{o}{\PYGZam{}} \PYG{n}{other}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{n}{point} \PYG{n}{result} \PYG{o}{=} \PYG{o}{*}\PYG{k}{this}\PYG{p}{;}
+
+        \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{result}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{result}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}=} \PYG{n}{other}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+        \PYG{p}{\PYGZcb{}}
+
+        \PYG{k}{return} \PYG{n}{result}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{};}
+
+\PYG{k}{template}\PYG{o}{\PYGZlt{}}\PYG{k}{typename} \PYG{n}{\PYGZus{}Type}\PYG{p}{,} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{\PYGZus{}Dims}\PYG{o}{\PYGZgt{}}
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{ostream}\PYG{o}{\PYGZam{}} \PYG{k}{operator}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{ostream}\PYG{o}{\PYGZam{}} \PYG{n}{stream}\PYG{p}{,} \PYG{k}{const} \PYG{n}{point}\PYG{o}{\PYGZlt{}}\PYG{n}{\PYGZus{}Type}\PYG{p}{,} \PYG{n}{\PYGZus{}Dims}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{p}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{n}{stream} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}\PYGZob{} \PYGZdq{}}\PYG{p}{;}
+    \PYG{k}{for} \PYG{p}{(}\PYG{k}{const} \PYG{k}{auto}\PYG{o}{\PYGZam{}} \PYG{n+nl}{d} \PYG{p}{:} \PYG{n}{p}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{n}{stream} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{d} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{} \PYGZdq{}}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{n}{stream} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s}{\PYGZdq{}\PYGZcb{}\PYGZdq{}}\PYG{p}{;}
+
+    \PYG{k}{return} \PYG{n}{stream}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{template}\PYG{o}{\PYGZlt{}}\PYG{k}{typename} \PYG{n}{\PYGZus{}Type}\PYG{p}{,} \PYG{k+kt}{size\PYGZus{}t} \PYG{n}{\PYGZus{}Dims}\PYG{o}{\PYGZgt{}}
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream}\PYG{o}{\PYGZam{}} \PYG{k}{operator}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream}\PYG{o}{\PYGZam{}} \PYG{n}{stream}\PYG{p}{,} \PYG{n}{point}\PYG{o}{\PYGZlt{}}\PYG{n}{\PYGZus{}Type}\PYG{p}{,} \PYG{n}{\PYGZus{}Dims}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{p}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{k}{for} \PYG{p}{(}\PYG{k}{auto}\PYG{o}{\PYGZam{}} \PYG{n+nl}{d} \PYG{p}{:} \PYG{n}{p}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{n}{stream} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{d}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k}{return} \PYG{n}{stream}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Examples:}
+\PYG{k}{using} \PYG{n}{point2d} \PYG{o}{=} \PYG{n}{point}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{double}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{o}{\PYGZgt{}}\PYG{p}{;}
+
+\PYG{n}{point2d} \PYG{n+nf}{rotate\PYGZus{}point2d}\PYG{p}{(}\PYG{n}{point2d} \PYG{n}{p}\PYG{p}{,} \PYG{n}{point2d} \PYG{n}{vertex}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{phi}\PYG{p}{);}
+\PYG{k+kr}{inline} \PYG{k+kt}{double} \PYG{n+nf}{distance}\PYG{p}{(}\PYG{k}{const} \PYG{n}{point2d}\PYG{o}{\PYGZam{}} \PYG{n}{left}\PYG{p}{,} \PYG{k}{const} \PYG{n}{point2d}\PYG{o}{\PYGZam{}} \PYG{n}{right}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{double} \PYG{n}{x} \PYG{o}{=} \PYG{n}{left}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{right}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{k+kt}{double} \PYG{n}{y} \PYG{o}{=} \PYG{n}{left}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{right}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+    \PYG{k}{return} \PYG{n}{std}\PYG{o}{::}\PYG{n}{sqrt}\PYG{p}{((}\PYG{n}{x} \PYG{o}{*} \PYG{n}{x}\PYG{p}{)} \PYG{o}{+} \PYG{p}{(}\PYG{n}{y} \PYG{o}{*} \PYG{n}{y}\PYG{p}{));}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

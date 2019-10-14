@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}figure.hpp\PYGZdq{}}
+
+\PYG{k+kt}{void} \PYG{n+nf}{rotate}\PYG{p}{(}\PYG{n}{figure}\PYG{o}{\PYGZlt{}}\PYG{n}{point2d}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{fig}\PYG{p}{,} \PYG{n}{point2d} \PYG{n}{vertex}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{phi}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{k}{for} \PYG{p}{(}\PYG{k}{auto}\PYG{o}{\PYGZam{}} \PYG{n+nl}{p} \PYG{p}{:} \PYG{n}{fig}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{n}{p} \PYG{o}{=} \PYG{n}{rotate\PYGZus{}point2d}\PYG{p}{(}\PYG{n}{p}\PYG{p}{,} \PYG{n}{vertex}\PYG{p}{,} \PYG{n}{phi}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream}\PYG{o}{\PYGZam{}} \PYG{k}{operator}\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{istream}\PYG{o}{\PYGZam{}} \PYG{n}{stream}\PYG{p}{,} \PYG{n}{rhombus}\PYG{o}{\PYGZam{}} \PYG{n}{fig}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{double} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{h}\PYG{p}{,} \PYG{n}{v}\PYG{p}{;}
+    \PYG{n}{stream} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{x} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{y} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{h} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{v}\PYG{p}{;}
+    \PYG{n}{fig} \PYG{o}{=} \PYG{n}{rhombus}\PYG{p}{(\PYGZob{}} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y} \PYG{p}{\PYGZcb{},} \PYG{n}{h}\PYG{p}{,} \PYG{n}{v}\PYG{p}{);}
+
+    \PYG{k}{return} \PYG{n}{stream}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
